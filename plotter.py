@@ -54,16 +54,16 @@ while running:
         number_of_columns = input("How many columns do you want?: ")
         number_of_rows = input("How many rows do you want?: ")
 
-        for x in range(int(number_of_columns)):
-            column_name = input(f"Enter the name of the column number {x+1}: ")
+        for column in range(int(number_of_columns)):
+            column_name = input(f"Enter the name of the column number {column+1}: ")
             customized_columns.append(column_name)
 
-        for x in range(int(number_of_rows)):
-            value = int(input(f"Enter the value for the row number {x+1}: "))
-            customized_values.append(value)
+            for row in range(int(number_of_rows)):
+                value = int(input(f"Enter the value for the row number {row+1}: "))
+                customized_values.append(value)
 
         df = pd.DataFrame(customized_values, customized_columns)
-        df.plot() # TypeError: no numeric data to plot. Probably need to solve the comment
+        df.plot() # ValueError: Shape of passed values is (9, 1), indices imply (3, 1)
         running = False
     # -----------------------------------------------------------------------------------------------------
 # %%
