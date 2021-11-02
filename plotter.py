@@ -32,11 +32,11 @@ class Plotter:
 # OBJECTS
 plotter = Plotter()
 
+# %%
 # GLOBAL VARIABLES
 customized_columns = []
 customized_values = []
 
-# %%
 running = True
 while running:
     plotter.print_main_menu() #TypeError: print_main_menu() missing 1 required positional argument: 'self'
@@ -51,19 +51,26 @@ while running:
 
     # CUSTOMIZED DATA -------------------------------------------------------------------------------------
     elif plotter.choice == "2":
+        # DETERMINE GRID SIZE
         number_of_columns = input("How many columns do you want?: ")
         number_of_rows = input("How many rows do you want?: ")
 
+        # CREATE A LIST WITH THE NAME OF THE COLUMNS
         for column in range(int(number_of_columns)):
             column_name = input(f"Enter the name of the column number {column+1}: ")
             customized_columns.append(column_name)
 
-            for row in range(int(number_of_rows)):
-                value = int(input(f"Enter the value for the row number {row+1}: "))
-                customized_values.append(value)
-
-        df = pd.DataFrame(customized_values, customized_columns)
-        df.plot() # ValueError: Shape of passed values is (9, 1), indices imply (3, 1)
+        # ASSIGN VALUES TO EACH ROW
+        for row in range(int(number_of_rows)):
+            for column in range(int(number_of_columns)):
+                value = int(input(f"Enter the values for the row number {row+1}: "))
+                customized_values.append(value) 
+        
+        customized_values = np.reshape(customized_values, (int(number_of_rows),int(number_of_columns)))
+        df = pd.DataFrame(customized_values, columns=customized_columns)
+        print("\nThis is your data")
+        print(df)
+        df.plot()
         running = False
     # -----------------------------------------------------------------------------------------------------
 # %%
@@ -74,5 +81,4 @@ while running:
 
 # COMMENTS
 # CUSTOMIZE DE NUMBER OF RANDOM NUMBERS IN OPTION 1?
-# IN OPTION 2 ALL VALUES IN EACH ROW ARE THE SAME. TRY NESTED FOR
-# CHECK THE OVERVIEW OF OPTION 2 FROM THE COURSE
+# OPTION 2 IS PLOTTING, NEED TO INCLUDE DIFFERENT TYPE OF PLOTS
